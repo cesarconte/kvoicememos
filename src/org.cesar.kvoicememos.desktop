@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=KVoiceMemos
+Name[es]=Notas de Voz (KVoiceMemos)
+GenericName=Voice Memos with Local AI
+GenericName[es]=Notas de voz con IA local (Whisper + Ollama)
+Comment=Record voice memos via PipeWire, transcribe locally with Whisper.cpp and summarize with Ollama
+Comment[es]=Graba notas de voz con PipeWire, transcribe localmente con Whisper.cpp y resume con Ollama
+Exec=kvoicememos
+Icon=audio-input-microphone
+Terminal=false
+Categories=Qt;KDE;AudioVideo;Audio;Recorder;Utility;
+Keywords=voice;memos;notas;voz;whisper;ollama;ia;grabadora;
+StartupNotify=true
