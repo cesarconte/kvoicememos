@@ -45,37 +45,6 @@ Kirigami.ApplicationWindow {
                     anchors.margins: Kirigami.Units.largeSpacing
                     spacing: Kirigami.Units.mediumSpacing
 
-                    // Cabecera
-                    RowLayout {
-                        Layout.fillWidth: true
-                        spacing: Kirigami.Units.smallSpacing
-
-                        Kirigami.Icon {
-                            source: "audio-input-microphone"
-                            Layout.preferredWidth: Kirigami.Units.iconSizes.medium
-                            Layout.preferredHeight: Kirigami.Units.iconSizes.medium
-                            color: Kirigami.Theme.highlightColor
-                        }
-
-                        ColumnLayout {
-                            Layout.fillWidth: true
-                            spacing: 0
-
-                            QQC2.Label {
-                                text: "Notas de Voz"
-                                font.pixelSize: 17
-                                font.bold: true
-                                color: Kirigami.Theme.textColor
-                            }
-
-                            QQC2.Label {
-                                text: "PipeWire • Whisper • Ollama"
-                                font.pixelSize: 11
-                                color: Kirigami.Theme.disabledTextColor
-                            }
-                        }
-                    }
-
                     // Barra de búsqueda
                     LiquidGlassCard {
                         Layout.fillWidth: true
