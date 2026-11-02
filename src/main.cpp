@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     app.setApplicationName(QStringLiteral("kvoicememos"));
     app.setApplicationDisplayName(QStringLiteral("Notas de Voz (KVoiceMemos)"));
     app.setOrganizationDomain(QStringLiteral("cesar.org"));
-    app.setWindowIcon(QIcon::fromTheme(QStringLiteral("org.kde.krecorder"), QIcon::fromTheme(QStringLiteral("media-record"))));
+    app.setWindowIcon(QIcon::fromTheme(QStringLiteral("org.cesar.kvoicememos"), QIcon(QStringLiteral(":/org/cesar/kvoicememos/icons/org.cesar.kvoicememos.svg"))));
 
     VoiceMemosController controller;
 

@@ -31,3 +31,4 @@ target_link_libraries(kvoicememos PRIVATE
 
 install(TARGETS kvoicememos DESTINATION ${KDE_INSTALL_BINDIR})
 install(FILES org.cesar.kvoicememos.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+install(FILES icons/org.cesar.kvoicememos.svg DESTINATION ${KDE_INSTALL_ICONDIR}/hicolor/scalable/apps)

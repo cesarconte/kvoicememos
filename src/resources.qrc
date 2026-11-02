@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/org/cesar/kvoicememos">
         <file>qml/main.qml</file>
+        <file>icons/org.cesar.kvoicememos.svg</file>
     </qresource>
 </RCC>
