@@ -9,6 +9,6 @@ Comment[es]=Graba notas de voz con PipeWire, transcribe localmente con Whisper.c
 Exec=kvoicememos
 Icon=audio-input-microphone
 Terminal=false
-Categories=Qt;KDE;AudioVideo;Audio;Recorder;Utility;
+Categories=AudioVideo;Audio;Recorder;KDE;Qt;
 Keywords=voice;memos;notas;voz;whisper;ollama;ia;grabadora;
 StartupNotify=true
