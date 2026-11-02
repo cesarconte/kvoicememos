@@ -10,7 +10,7 @@
 - **Resumen IA con Ollama (`qwen2.5:7b`)**: genera automáticamente una sugerencia de título y lista de puntos clave con viñetas a través de `http://127.0.0.1:11434/api/chat`.
 - **Integración directa con Kiri Local RAG**: exporta con un clic cualquier nota de voz (título, fecha, resumen y transcripción completa) como documento Markdown en `~/.local/share/kiri/knowledge/`.
 - **Búsqueda en tiempo real**: filtra notas por título, contenido transcrito o resumen IA.
-- **Interfaz Liquid Glass**: diseño de doble panel basado en Kirigami + `LiquidGlassCard`.
+- **Interfaz Nativa Breeze**: diseño de doble panel basado en Kirigami y componentes estándar de KDE Plasma.
 
 ## Requisitos
 

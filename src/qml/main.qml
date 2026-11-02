@@ -33,12 +33,12 @@ Kirigami.ApplicationWindow {
             spacing: Kirigami.Units.largeSpacing
 
             // ==================== PANEL IZQUIERDO: LISTA Y GRABADORA ====================
-            LiquidGlassCard {
+            QQC2.Frame {
                 Layout.preferredWidth: 340
                 Layout.minimumWidth: 300
                 Layout.maximumWidth: 380
                 Layout.fillHeight: true
-                glassStyle: "shell"
+                padding: Kirigami.Units.mediumSpacing
 
                 ColumnLayout {
                     anchors.fill: parent
@@ -46,10 +46,13 @@ Kirigami.ApplicationWindow {
                     spacing: Kirigami.Units.mediumSpacing
 
                     // Barra de búsqueda
-                    LiquidGlassCard {
+                    Rectangle {
                         Layout.fillWidth: true
                         Layout.preferredHeight: 38
-                        glassStyle: "recessed"
+                        radius: Kirigami.Units.smallSpacing
+                        color: Kirigami.Theme.backgroundColor
+                        border.width: 1
+                        border.color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, 0.14)
 
                         RowLayout {
                             anchors.fill: parent
@@ -100,10 +103,16 @@ Kirigami.ApplicationWindow {
                             readonly property bool isPlaying: root.controller
                                 && root.controller.playingMemoId === delegateRoot.modelData.id
 
-                            LiquidGlassCard {
+                            Rectangle {
                                 anchors.fill: parent
-                                glassStyle: "card"
-                                isHighlighted: delegateRoot.isSelected
+                                radius: Kirigami.Units.smallSpacing
+                                color: delegateRoot.isSelected
+                                    ? Qt.rgba(Kirigami.Theme.highlightColor.r, Kirigami.Theme.highlightColor.g, Kirigami.Theme.highlightColor.b, 0.16)
+                                    : Kirigami.Theme.alternateBackgroundColor
+                                border.width: 1
+                                border.color: delegateRoot.isSelected
+                                    ? Kirigami.Theme.highlightColor
+                                    : Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, 0.14)
 
                                 MouseArea {
                                     anchors.fill: parent
@@ -203,11 +212,17 @@ Kirigami.ApplicationWindow {
                     }
 
                     // Dock inferior de grabación estilo macOS Voice Memos
-                    LiquidGlassCard {
+                    Rectangle {
                         Layout.fillWidth: true
                         Layout.preferredHeight: 108
-                        glassStyle: "recessed"
-                        isHighlighted: root.controller ? root.controller.recording : false
+                        radius: Kirigami.Units.smallSpacing
+                        color: (root.controller && root.controller.recording)
+                            ? Qt.rgba(Kirigami.Theme.highlightColor.r, Kirigami.Theme.highlightColor.g, Kirigami.Theme.highlightColor.b, 0.16)
+                            : Kirigami.Theme.backgroundColor
+                        border.width: 1
+                        border.color: (root.controller && root.controller.recording)
+                            ? Kirigami.Theme.highlightColor
+                            : Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, 0.14)
 
                         ColumnLayout {
                             anchors.fill: parent
@@ -300,22 +315,21 @@ Kirigami.ApplicationWindow {
             }
 
             // ==================== PANEL DERECHO: DETALLES, WHISPER Y OLLAMA ====================
-            LiquidGlassCard {
+            QQC2.Frame {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                glassStyle: "shell"
+                padding: Kirigami.Units.mediumSpacing
 
                 ColumnLayout {
                     anchors.fill: parent
-                    anchors.margins: Kirigami.Units.largeSpacing
                     spacing: Kirigami.Units.mediumSpacing
 
                     // Cabecera de nota seleccionada + controles de título y reproducción
-                    LiquidGlassCard {
+                    QQC2.Frame {
                         Layout.fillWidth: true
                         Layout.preferredHeight: 92
-                        glassStyle: "card"
                         visible: root.hasSelection
+                        padding: Kirigami.Units.smallSpacing
 
                         ColumnLayout {
                             anchors.fill: parent
@@ -386,15 +400,14 @@ Kirigami.ApplicationWindow {
                     }
 
                     // Sección 1: Transcripción (Whisper.cpp)
-                    LiquidGlassCard {
+                    QQC2.Frame {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        glassStyle: "card"
                         visible: root.hasSelection
+                        padding: Kirigami.Units.smallSpacing
 
                         ColumnLayout {
                             anchors.fill: parent
-                            anchors.margins: Kirigami.Units.mediumSpacing
                             spacing: Kirigami.Units.smallSpacing
 
                             RowLayout {
@@ -459,15 +472,14 @@ Kirigami.ApplicationWindow {
                     }
 
                     // Sección 2: Resumen IA (Apple Intelligence / Ollama)
-                    LiquidGlassCard {
+                    QQC2.Frame {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        glassStyle: "card"
                         visible: root.hasSelection
+                        padding: Kirigami.Units.smallSpacing
 
                         ColumnLayout {
                             anchors.fill: parent
-                            anchors.margins: Kirigami.Units.mediumSpacing
                             spacing: Kirigami.Units.smallSpacing
 
                             RowLayout {
@@ -566,10 +578,13 @@ Kirigami.ApplicationWindow {
                     }
 
                     // Barra de estado inferior
-                    LiquidGlassCard {
+                    Rectangle {
                         Layout.fillWidth: true
                         Layout.preferredHeight: 34
-                        glassStyle: "recessed"
+                        radius: Kirigami.Units.smallSpacing
+                        color: Kirigami.Theme.backgroundColor
+                        border.width: 1
+                        border.color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, 0.14)
 
                         RowLayout {
                             anchors.fill: parent
