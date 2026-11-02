@@ -19,19 +19,13 @@ Kirigami.ApplicationWindow {
     minimumWidth: 760
     minimumHeight: 500
     visible: true
-    color: "#0b0d13"
 
     readonly property var controller: typeof VoiceMemos !== "undefined" ? VoiceMemos : null
     readonly property var currentMemo: controller ? controller.selectedMemo : ({})
     readonly property bool hasSelection: currentMemo && currentMemo.id !== undefined && currentMemo.id !== ""
 
-    Rectangle {
+    Item {
         anchors.fill: parent
-        gradient: Gradient {
-            GradientStop { position: 0.0; color: "#0b0e17" }
-            GradientStop { position: 0.5; color: "#0e1320" }
-            GradientStop { position: 1.0; color: "#090b11" }
-        }
 
         RowLayout {
             anchors.fill: parent
