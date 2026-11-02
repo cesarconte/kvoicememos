@@ -54,7 +54,7 @@ Kirigami.ApplicationWindow {
                             source: "audio-input-microphone"
                             Layout.preferredWidth: Kirigami.Units.iconSizes.medium
                             Layout.preferredHeight: Kirigami.Units.iconSizes.medium
-                            color: "#00e5ff"
+                            color: Kirigami.Theme.highlightColor
                         }
 
                         ColumnLayout {
@@ -65,13 +65,13 @@ Kirigami.ApplicationWindow {
                                 text: "Notas de Voz"
                                 font.pixelSize: 17
                                 font.bold: true
-                                color: "#f4f7ff"
+                                color: Kirigami.Theme.textColor
                             }
 
                             QQC2.Label {
                                 text: "PipeWire • Whisper • Ollama"
                                 font.pixelSize: 11
-                                color: "#8fa2c4"
+                                color: Kirigami.Theme.disabledTextColor
                             }
                         }
                     }
@@ -92,7 +92,7 @@ Kirigami.ApplicationWindow {
                                 source: "search"
                                 Layout.preferredWidth: 16
                                 Layout.preferredHeight: 16
-                                color: "#8fa2c4"
+                                color: Kirigami.Theme.disabledTextColor
                             }
 
                             QQC2.TextField {
@@ -100,8 +100,8 @@ Kirigami.ApplicationWindow {
                                 Layout.fillWidth: true
                                 placeholderText: "Buscar por título, transcripción o resumen…"
                                 background: null
-                                color: "#eef3ff"
-                                placeholderTextColor: "#6d7d99"
+                                color: Kirigami.Theme.textColor
+                                placeholderTextColor: Kirigami.Theme.disabledTextColor
                                 onTextChanged: {
                                     if (root.controller) {
                                         root.controller.filterMemos(text)
@@ -172,7 +172,7 @@ Kirigami.ApplicationWindow {
                                             font.pixelSize: 13
                                             font.bold: true
                                             elide: Text.ElideRight
-                                            color: "#f2f6ff"
+                                            color: Kirigami.Theme.textColor
                                         }
 
                                         RowLayout {
@@ -182,14 +182,14 @@ Kirigami.ApplicationWindow {
                                             QQC2.Label {
                                                 text: delegateRoot.modelData.createdAt || ""
                                                 font.pixelSize: 11
-                                                color: "#8ea0be"
+                                                color: Kirigami.Theme.disabledTextColor
                                             }
 
                                             Rectangle {
                                                 radius: 6
-                                                color: Qt.rgba(0.0, 0.9, 1.0, 0.16)
+                                                color: Kirigami.Theme.alternateBackgroundColor
                                                 border.width: 1
-                                                border.color: Qt.rgba(0.0, 0.9, 1.0, 0.35)
+                                                border.color: Kirigami.Theme.highlightColor
                                                 implicitWidth: durLabel.implicitWidth + 10
                                                 implicitHeight: durLabel.implicitHeight + 4
 
@@ -201,7 +201,7 @@ Kirigami.ApplicationWindow {
                                                         : "00:00"
                                                     font.pixelSize: 10
                                                     font.bold: true
-                                                    color: "#00e5ff"
+                                                    color: Kirigami.Theme.highlightColor
                                                 }
                                             }
                                         }
@@ -229,7 +229,7 @@ Kirigami.ApplicationWindow {
                             wrapMode: Text.WordWrap
                             text: "No hay notas de voz.\nPulsa «Grabar» abajo para capturar con PipeWire."
                             font.pixelSize: 12
-                            color: "#7f91af"
+                            color: Kirigami.Theme.disabledTextColor
                         }
                     }
 
@@ -256,7 +256,7 @@ Kirigami.ApplicationWindow {
                                         : "00:00"
                                     font.pixelSize: 16
                                     font.bold: true
-                                    color: (root.controller && root.controller.recording) ? "#ff5252" : "#9fb0cc"
+                                    color: (root.controller && root.controller.recording) ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.textColor
                                 }
 
                                 // Barra de nivel de audio en vivo
@@ -264,13 +264,13 @@ Kirigami.ApplicationWindow {
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: 10
                                     radius: 5
-                                    color: Qt.rgba(1, 1, 1, 0.08)
+                                    color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, 0.12)
 
                                     Rectangle {
                                         width: parent.width * (root.controller ? Math.min(1.0, root.controller.currentLevel) : 0.0)
                                         height: parent.height
                                         radius: 5
-                                        color: (root.controller && root.controller.recording) ? "#ff405c" : "#00e5ff"
+                                        color: (root.controller && root.controller.recording) ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.highlightColor
                                         Behavior on width {
                                             NumberAnimation { duration: 120 }
                                         }
@@ -364,7 +364,7 @@ Kirigami.ApplicationWindow {
                                     placeholderText: "Título de la nota de voz…"
                                     font.pixelSize: 16
                                     font.bold: true
-                                    color: "#f4f7ff"
+                                    color: Kirigami.Theme.textColor
                                     onAccepted: {
                                         if (root.controller && root.hasSelection) {
                                             root.controller.renameMemo(root.currentMemo.id, text)
@@ -408,7 +408,7 @@ Kirigami.ApplicationWindow {
                                            + (root.controller ? root.controller.formatDuration(root.currentMemo.durationSec || 0) : "00:00"))
                                         : ""
                                     font.pixelSize: 12
-                                    color: "#9db0ce"
+                                    color: Kirigami.Theme.disabledTextColor
                                 }
 
                                 Item { Layout.fillWidth: true }
@@ -436,7 +436,7 @@ Kirigami.ApplicationWindow {
                                     text: "Transcripción (Whisper.cpp)"
                                     font.pixelSize: 14
                                     font.bold: true
-                                    color: "#00e5ff"
+                                    color: Kirigami.Theme.highlightColor
                                 }
 
                                 QQC2.BusyIndicator {
@@ -481,7 +481,7 @@ Kirigami.ApplicationWindow {
                                     text: root.currentMemo.transcript
                                         ? root.currentMemo.transcript
                                         : "Pulsa «Transcribir» para convertir la grabación en texto mediante Whisper.cpp local."
-                                    color: root.currentMemo.transcript ? "#eaf0ff" : "#7e90ae"
+                                    color: root.currentMemo.transcript ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor
                                     font.pixelSize: 13
                                     background: null
                                 }
@@ -509,7 +509,7 @@ Kirigami.ApplicationWindow {
                                     text: "Resumen IA (Apple Intelligence / Ollama)"
                                     font.pixelSize: 14
                                     font.bold: true
-                                    color: "#00e5ff"
+                                    color: Kirigami.Theme.highlightColor
                                 }
 
                                 QQC2.BusyIndicator {
@@ -553,7 +553,7 @@ Kirigami.ApplicationWindow {
                                     text: root.currentMemo.summary
                                         ? root.currentMemo.summary
                                         : "El resumen ejecutivo con viñetas y sugerencia de título (qwen2.5:7b) aparecerá aquí."
-                                    color: root.currentMemo.summary ? "#eaf0ff" : "#7e90ae"
+                                    color: root.currentMemo.summary ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor
                                     font.pixelSize: 13
                                     background: null
                                 }
@@ -576,7 +576,7 @@ Kirigami.ApplicationWindow {
                                 source: "audio-input-microphone"
                                 Layout.preferredWidth: 56
                                 Layout.preferredHeight: 56
-                                color: "#00e5ff"
+                                color: Kirigami.Theme.highlightColor
                             }
 
                             QQC2.Label {
@@ -584,14 +584,14 @@ Kirigami.ApplicationWindow {
                                 text: "Selecciona o graba una nota de voz"
                                 font.pixelSize: 16
                                 font.bold: true
-                                color: "#dce6fa"
+                                color: Kirigami.Theme.textColor
                             }
 
                             QQC2.Label {
                                 Layout.alignment: Qt.AlignHCenter
                                 text: "Las grabaciones se transcriben localmente con Whisper.cpp y se resumen con Ollama."
                                 font.pixelSize: 12
-                                color: "#899bb8"
+                                color: Kirigami.Theme.disabledTextColor
                             }
                         }
                     }
@@ -614,7 +614,7 @@ Kirigami.ApplicationWindow {
                                     ? root.controller.statusMessage
                                     : "Listo • PipeWire + Whisper.cpp + Ollama (qwen2.5:7b)"
                                 font.pixelSize: 11
-                                color: "#9eb2d0"
+                                color: Kirigami.Theme.disabledTextColor
                             }
                         }
                     }
