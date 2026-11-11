@@ -163,6 +163,7 @@ private Q_SLOTS:
         VoiceMemosController ctrl(storageTmp.path(), knowledgeTmp.path());
 
         QQmlEngine engine;
+        engine.addImportPath(QStringLiteral("/home/cesar/.local/lib/qt6/qml"));
         engine.rootContext()->setContextProperty(QStringLiteral("VoiceMemos"), &ctrl);
 
         QQmlComponent comp(&engine, QUrl(QStringLiteral("qrc:/org/cesar/kvoicememos/qml/main.qml")));
