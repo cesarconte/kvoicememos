@@ -6,9 +6,9 @@
 
 - **Captura de audio vía PipeWire (`pw-record`)**: graba a 16 kHz / 16-bit mono desde la fuente por defecto de PipeWire sin fijar dispositivos ALSA (`hw:*`), manteniendo intacto el procesado de **EasyEffects**.
 - **Reproducción instantánea (`pw-play`)**: escucha tus notas directamente desde la interfaz.
-- **Transcripción local automática con Whisper.cpp**: utiliza `~/.local/bin/whisper-cli` con el modelo `~/.local/share/kiri/models/ggml-base.bin` en español (`-l es -nt`) y limpia marcas de tiempo o `[BLANK_AUDIO]`.
+- **Transcripción local automática con Whisper.cpp**: utiliza `~/.local/bin/whisper-cli` con el modelo `~/.local/share/kity/models/ggml-base.bin` en español (`-l es -nt`) y limpia marcas de tiempo o `[BLANK_AUDIO]`.
 - **Resumen IA con Ollama (`qwen2.5:7b`)**: genera automáticamente una sugerencia de título y lista de puntos clave con viñetas a través de `http://127.0.0.1:11434/api/chat`.
-- **Integración directa con Kiri Local RAG**: exporta con un clic cualquier nota de voz (título, fecha, resumen y transcripción completa) como documento Markdown en `~/.local/share/kiri/knowledge/`.
+- **Integración directa con Kity Local RAG**: exporta con un clic cualquier nota de voz (título, fecha, resumen y transcripción completa) como documento Markdown en `~/.local/share/kity/knowledge/`.
 - **Búsqueda en tiempo real**: filtra notas por título, contenido transcrito o resumen IA.
 - **Interfaz Nativa Breeze**: diseño de doble panel basado en Kirigami y componentes estándar de KDE Plasma.
 
@@ -17,7 +17,7 @@
 - **KDE Plasma 6.8+** y **Qt 6.7+** (`Core`, `Gui`, `Widgets`, `Network`, `Qml`, `Quick`, `QuickControls2`, `Test`)
 - **KDE Frameworks 6** (`CoreAddons`, `I18n`, `Kirigami`, `ECM`)
 - **PipeWire** (`pw-record`, `pw-play`)
-- **Whisper.cpp**: binario en `~/.local/bin/whisper-cli` y modelo en `~/.local/share/kiri/models/ggml-base.bin`
+- **Whisper.cpp**: binario en `~/.local/bin/whisper-cli` y modelo en `~/.local/share/kity/models/ggml-base.bin`
 - **Ollama**: servicio local en `http://127.0.0.1:11434` con el modelo `qwen2.5:7b`
 
 ## Compilación, pruebas e instalación

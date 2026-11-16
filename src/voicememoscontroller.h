@@ -61,7 +61,8 @@ public:
     Q_INVOKABLE void summarizeMemo(const QString &id);
     Q_INVOKABLE void renameMemo(const QString &id, const QString &newTitle);
     Q_INVOKABLE void deleteMemo(const QString &id);
-    Q_INVOKABLE bool exportToKiriKnowledge(const QString &id);
+    Q_INVOKABLE bool exportToKityKnowledge(const QString &id);
+    Q_INVOKABLE bool exportToKiriKnowledge(const QString &id) { return exportToKityKnowledge(id); }
     Q_INVOKABLE void selectMemo(const QString &id);
     Q_INVOKABLE void filterMemos(const QString &searchQuery);
     Q_INVOKABLE void copyText(const QString &text);

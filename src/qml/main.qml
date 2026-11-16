@@ -427,7 +427,7 @@ CachyWindow {
                 tooltipText: "Exportar nota y resumen a la base de conocimiento RAG de Kity"
                 onClicked: {
                     if (root.controller && root.hasSelection) {
-                        root.controller.exportToKiriKnowledge(root.currentMemo.id);
+                        root.controller.exportToKityKnowledge(root.currentMemo.id);
                     }
                 }
             }
@@ -666,7 +666,7 @@ CachyWindow {
                             implicitWidth: 84
                             onClicked: {
                                 if (root.controller && root.hasSelection) {
-                                    root.controller.exportToKiriKnowledge(root.currentMemo.id);
+                                    root.controller.exportToKityKnowledge(root.currentMemo.id);
                                 }
                             }
                         }

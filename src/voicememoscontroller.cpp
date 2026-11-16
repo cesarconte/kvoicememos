@@ -32,7 +32,7 @@ VoiceMemosController::VoiceMemosController(const QString &storageDir,
                        ? (QDir::homePath() + QStringLiteral("/.local/share/kvoicememos"))
                        : storageDir)
     , m_knowledgeDir(knowledgeDir.isEmpty()
-                         ? (QDir::homePath() + QStringLiteral("/.local/share/kiri/knowledge"))
+                         ? (QDir::homePath() + QStringLiteral("/.local/share/kity/knowledge"))
                          : knowledgeDir)
     , m_recordTimer(new QTimer(this))
     , m_nam(new QNetworkAccessManager(this))
@@ -570,7 +570,7 @@ void VoiceMemosController::deleteMemo(const QString &id)
     setStatus(QStringLiteral("Nota de voz eliminada."));
 }
 
-bool VoiceMemosController::exportToKiriKnowledge(const QString &id)
+bool VoiceMemosController::exportToKityKnowledge(const QString &id)
 {
     const int idx = findMemoIndex(id);
     if (idx < 0) {
@@ -586,7 +586,7 @@ bool VoiceMemosController::exportToKiriKnowledge(const QString &id)
     const QString transcript = memo.value(QStringLiteral("transcript")).toString();
 
     if (!QDir().mkpath(m_knowledgeDir)) {
-        setStatus(QStringLiteral("No se pudo crear el directorio de Kiri RAG."));
+        setStatus(QStringLiteral("No se pudo crear el directorio de Kity RAG."));
         return false;
     }
 
@@ -595,7 +595,7 @@ bool VoiceMemosController::exportToKiriKnowledge(const QString &id)
 
     QFile f(outPath);
     if (!f.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        setStatus(QStringLiteral("No se pudo escribir el archivo en Kiri RAG."));
+        setStatus(QStringLiteral("No se pudo escribir el archivo en Kity RAG."));
         return false;
     }
 
@@ -613,7 +613,7 @@ bool VoiceMemosController::exportToKiriKnowledge(const QString &id)
     f.write(md.toUtf8());
     f.close();
 
-    setStatus(QStringLiteral("Exportado a Kiri Knowledge: %1.md").arg(slug));
+    setStatus(QStringLiteral("Exportado a Kity Knowledge: %1.md").arg(slug));
     return true;
 }
 
@@ -841,6 +841,10 @@ QString VoiceMemosController::resolveWhisperModel() const
     const QString sysModel = QStringLiteral("/usr/share/kity/models/ggml-base.bin");
     if (QFileInfo::exists(sysModel)) {
         return sysModel;
+    }
+    const QString kityModel = QDir::homePath() + QStringLiteral("/.local/share/kity/models/ggml-base.bin");
+    if (QFileInfo::exists(kityModel)) {
+        return kityModel;
     }
     const QString model = QDir::homePath() + QStringLiteral("/.local/share/kiri/models/ggml-base.bin");
     if (QFileInfo::exists(model)) {
