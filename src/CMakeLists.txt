@@ -1,4 +1,10 @@
 add_library(kvoicememos_core STATIC
+    memoaudioengine.cpp
+    memoaudioengine.h
+    memostore.cpp
+    memostore.h
+    memotranscriptionservice.cpp
+    memotranscriptionservice.h
     voicememoscontroller.cpp
     voicememoscontroller.h
 )

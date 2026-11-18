@@ -5,12 +5,15 @@
 
 #pragma once
 
-#include <QNetworkAccessManager>
+#include <QByteArray>
 #include <QObject>
-#include <QProcess>
-#include <QTimer>
+#include <QString>
 #include <QVariantList>
 #include <QVariantMap>
+
+class MemoAudioEngine;
+class MemoTranscriptionService;
+class MemoStore;
 
 class VoiceMemosController : public QObject
 {
@@ -88,33 +91,12 @@ Q_SIGNALS:
     void statusMessageChanged();
 
 private:
-    void updateRecordingMetrics();
     void setStatus(const QString &msg);
-    int findMemoIndex(const QString &id) const;
-    void updateMemoField(const QString &id, const QString &key, const QVariant &value, bool persist = true);
-    QString resolveWhisperBinary() const;
-    QString resolveWhisperModel() const;
 
-    QString m_storageDir;
-    QString m_knowledgeDir;
-    QString m_searchQuery;
-    QVariantList m_allMemos;
+    MemoAudioEngine *m_audioEngine = nullptr;
+    MemoTranscriptionService *m_transcriptionService = nullptr;
+    MemoStore *m_memoStore = nullptr;
 
-    bool m_recording = false;
-    int m_recordingSeconds = 0;
-    int m_recordingTickCount = 0;
-    double m_currentLevel = 0.0;
-    QString m_activeRecordingId;
-    QString m_activeRecordingTitle;
-    QString m_activeRecordingPath;
     bool m_autoTranscribeOnStop = true;
-
-    QString m_playingMemoId;
-    QString m_selectedMemoId;
     QString m_statusMessage;
-
-    QProcess *m_recordProcess = nullptr;
-    QProcess *m_playProcess = nullptr;
-    QTimer *m_recordTimer = nullptr;
-    QNetworkAccessManager *m_nam = nullptr;
 };

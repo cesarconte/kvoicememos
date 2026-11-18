@@ -1,6 +1,12 @@
 <RCC>
     <qresource prefix="/org/cesar/kvoicememos">
         <file>qml/main.qml</file>
+        <file>qml/MemoListSidebar.qml</file>
+        <file>qml/RecordingControlDrawer.qml</file>
+        <file>qml/PlaybackWaveformCard.qml</file>
+        <file>qml/TranscriptCard.qml</file>
+        <file>qml/SummaryCard.qml</file>
+        <file>qml/EmptyMemoPlaceholder.qml</file>
         <file>icons/org.cesar.kvoicememos.svg</file>
     </qresource>
 </RCC>
