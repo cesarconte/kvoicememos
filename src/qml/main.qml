@@ -24,11 +24,10 @@ CachyWindow {
     showTrafficLights: true
     showTitleBarDivider: true
     showWindowFrame: true
-    sidebarVisible: root.showSidebar
-    sidebarWidth: 280
+    sidebarVisible: true
+    sidebarWidthExpanded: 280
     cornerRadius: CachyTheme.radiusWindow
 
-    property bool showSidebar: true
     readonly property var controller: typeof VoiceMemos !== "undefined" ? VoiceMemos : null
     readonly property var currentMemo: controller ? controller.selectedMemo : ({})
     readonly property bool hasSelection: currentMemo && currentMemo.id !== undefined && currentMemo.id !== ""
@@ -88,6 +87,7 @@ CachyWindow {
             spacing: 6
 
             CachySidebarToggleButton {
+                targetWindow: root
                 visible: true
             }
 
