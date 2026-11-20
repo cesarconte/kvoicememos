@@ -20,7 +20,7 @@ ColumnLayout {
     // Section Header
     Text {
         Layout.leftMargin: 6
-        text: "All Recordings"
+        text: qsTr("Todas las grabaciones")
         font.pixelSize: 11
         font.weight: Font.DemiBold
         color: CachyTheme.textMuted
@@ -41,16 +41,16 @@ ColumnLayout {
             anchors.rightMargin: 10
             spacing: 6
 
-            Text {
-                text: "🔍"
-                font.pixelSize: 11
+            CachyIcon {
+                name: "search"
+                size: 13
                 color: CachyTheme.textMuted
             }
 
             QQC2.TextField {
                 id: searchField
                 Layout.fillWidth: true
-                placeholderText: "Buscar grabaciones…"
+                placeholderText: qsTr("Buscar grabaciones…")
                 font.pixelSize: 12
                 background: null
                 color: CachyTheme.textPrimary
@@ -115,10 +115,10 @@ ColumnLayout {
                     border.width: 1
                     border.color: CachyTheme.specularBorder
 
-                    Text {
+                    CachyIcon {
                         anchors.centerIn: parent
-                        text: delegateRoot.isPlaying ? "■" : "▶"
-                        font.pixelSize: 11
+                        name: delegateRoot.isPlaying ? "pause" : "play"
+                        size: 13
                         color: delegateRoot.isPlaying ? "#FFFFFF" : CachyTheme.accentColor
                     }
 
@@ -138,7 +138,7 @@ ColumnLayout {
 
                     Text {
                         Layout.fillWidth: true
-                        text: delegateRoot.modelData.title || "Nota de voz"
+                        text: delegateRoot.modelData.title || qsTr("Nota de voz")
                         font.pixelSize: 13
                         font.weight: delegateRoot.isSelected ? Font.Bold : Font.DemiBold
                         elide: Text.ElideRight
@@ -185,10 +185,11 @@ ColumnLayout {
                         }
                     }
 
-                    Text {
+                    CachyIcon {
                         anchors.centerIn: parent
-                        text: "🗑"
-                        font.pixelSize: 11
+                        name: "trash"
+                        size: 13
+                        color: "#FF3B30"
                     }
                 }
             }

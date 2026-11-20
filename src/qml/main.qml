@@ -43,10 +43,10 @@ CachyWindow {
             anchors.verticalCenter: parent.verticalCenter
 
             CachyToolbarButton {
-                text: (root.controller && root.controller.recording) ? "■" : "●"
+                iconName: (root.controller && root.controller.recording) ? "media-playback-stop" : "add"
                 tooltipText: (root.controller && root.controller.recording)
-                    ? "Detener grabación"
-                    : "Nueva grabación rápida"
+                    ? qsTr("Detener grabación")
+                    : qsTr("Nueva grabación rápida")
                 onClicked: {
                     if (!root.controller) return;
                     if (root.controller.recording) {
@@ -87,16 +87,14 @@ CachyWindow {
             anchors.verticalCenter: parent.verticalCenter
             spacing: 6
 
-            CachyToolbarButton {
-                text: "☰"
-                tooltipText: "Mostrar/ocultar barra lateral de grabaciones"
-                onClicked: root.showSidebar = !root.showSidebar
+            CachySidebarToggleButton {
+                visible: true
             }
 
             CachyToolbarButton {
                 visible: root.hasSelection
-                text: root.isCurrentPlaying ? "■" : "▶"
-                tooltipText: root.isCurrentPlaying ? "Detener reproducción" : "Reproducir grabación seleccionada"
+                iconName: root.isCurrentPlaying ? "pause" : "play"
+                tooltipText: root.isCurrentPlaying ? qsTr("Detener reproducción") : qsTr("Reproducir grabación seleccionada")
                 onClicked: {
                     if (root.controller && root.hasSelection) {
                         root.controller.playMemo(root.currentMemo.id);
@@ -113,8 +111,8 @@ CachyWindow {
 
             CachyToolbarButton {
                 visible: root.hasSelection
-                text: "🗣"
-                tooltipText: "Transcribir audio con Whisper.cpp local"
+                iconName: "volume"
+                tooltipText: qsTr("Transcribir audio con Whisper.cpp local")
                 onClicked: {
                     if (root.controller && root.hasSelection) {
                         root.controller.transcribeMemo(root.currentMemo.id);
@@ -124,8 +122,8 @@ CachyWindow {
 
             CachyToolbarButton {
                 visible: root.hasSelection
-                text: "✨"
-                tooltipText: "Generar resumen ejecutivo con IA (Apple Intelligence / Ollama)"
+                iconName: "sparkles"
+                tooltipText: qsTr("Generar resumen ejecutivo con IA (Kity / Ollama)")
                 onClicked: {
                     if (root.controller && root.hasSelection) {
                         root.controller.summarizeMemo(root.currentMemo.id);
@@ -135,8 +133,8 @@ CachyWindow {
 
             CachyToolbarButton {
                 visible: root.hasSelection
-                text: "📋"
-                tooltipText: "Copiar transcripción al portapapeles"
+                iconName: "file"
+                tooltipText: qsTr("Copiar transcripción al portapapeles")
                 onClicked: {
                     if (root.controller && root.hasSelection) {
                         root.controller.copyText(root.currentMemo.transcript || "");
@@ -146,8 +144,8 @@ CachyWindow {
 
             CachyToolbarButton {
                 visible: root.hasSelection
-                text: "✦"
-                tooltipText: "Exportar nota y resumen a la base de conocimiento RAG de Kity"
+                iconName: "upload"
+                tooltipText: qsTr("Exportar nota y resumen a la base de conocimiento RAG de Kity")
                 onClicked: {
                     if (root.controller && root.hasSelection) {
                         root.controller.exportToKityKnowledge(root.currentMemo.id);

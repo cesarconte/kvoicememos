@@ -63,8 +63,10 @@ Rectangle {
             }
 
             CachyToolbarButton {
-                text: "✦ Kity RAG"
-                implicitWidth: 84
+                text: "Kity RAG"
+                iconName: "upload"
+                implicitWidth: 92
+                tooltipText: qsTr("Exportar a la base de conocimiento RAG de Kity")
                 onClicked: {
                     if (root.controller && root.hasSelection) {
                         root.controller.exportToKityKnowledge(root.currentMemo.id);

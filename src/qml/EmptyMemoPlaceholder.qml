@@ -33,10 +33,12 @@ Rectangle {
             border.width: 1
             border.color: "#4DFF3B30"
 
-            Text {
+            CachyIcon {
                 anchors.centerIn: parent
-                text: "🎙"
-                font.pixelSize: 28
+                name: "audio-input-microphone"
+                fallback: "volume"
+                size: 28
+                color: "#FF3B30"
             }
         }
 
