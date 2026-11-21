@@ -41,10 +41,6 @@ QString MemoTranscriptionService::cleanWhisperOutput(const QString &raw)
 
 QString MemoTranscriptionService::resolveWhisperBinary()
 {
-    const QString localBin = QDir::homePath() + QStringLiteral("/.local/bin/whisper-cli");
-    if (QFileInfo::exists(localBin)) {
-        return localBin;
-    }
     const QString sysBin = QStandardPaths::findExecutable(QStringLiteral("whisper-cli"));
     if (!sysBin.isEmpty()) {
         return sysBin;
@@ -54,21 +50,18 @@ QString MemoTranscriptionService::resolveWhisperBinary()
 
 QString MemoTranscriptionService::resolveWhisperModel()
 {
-    const QString located = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kity/models/ggml-base.bin"));
-    if (!located.isEmpty()) {
-        return located;
+    for (const QString &rel : {
+             QStringLiteral("kity/models/ggml-base.bin"),
+             QStringLiteral("kiri/models/ggml-base.bin"),
+         }) {
+        const QString located = QStandardPaths::locate(QStandardPaths::GenericDataLocation, rel);
+        if (!located.isEmpty()) {
+            return located;
+        }
     }
     const QString sysModel = QStringLiteral("/usr/share/kity/models/ggml-base.bin");
     if (QFileInfo::exists(sysModel)) {
         return sysModel;
-    }
-    const QString kityModel = QDir::homePath() + QStringLiteral("/.local/share/kity/models/ggml-base.bin");
-    if (QFileInfo::exists(kityModel)) {
-        return kityModel;
-    }
-    const QString model = QDir::homePath() + QStringLiteral("/.local/share/kiri/models/ggml-base.bin");
-    if (QFileInfo::exists(model)) {
-        return model;
     }
     return QString();
 }

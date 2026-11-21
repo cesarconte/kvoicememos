@@ -5,17 +5,28 @@
 
 #include "voicememoscontroller.h"
 
+#include <KLocalizedString>
+
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QIcon>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QQuickStyle>
 #include <QQuickWindow>
 #include <QTimer>
 
 int main(int argc, char *argv[])
 {
+    qputenv("QT_QPA_PLATFORM", "wayland;xcb");
+    QQuickWindow::setDefaultAlphaBuffer(true);
+
+    if (qEnvironmentVariableIsEmpty("QT_QUICK_CONTROLS_STYLE")) {
+        QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
+    }
+
     QApplication app(argc, argv);
+    KLocalizedString::setApplicationDomain("kvoicememos");
     app.setApplicationName(QStringLiteral("kvoicememos"));
     app.setApplicationDisplayName(QStringLiteral("Notas de Voz (KVoiceMemos)"));
     app.setOrganizationDomain(QStringLiteral("cesar.org"));
@@ -32,7 +43,7 @@ int main(int argc, char *argv[])
     VoiceMemosController controller;
 
     QQmlApplicationEngine engine;
-    engine.addImportPath(QStringLiteral("/home/cesar/.local/lib/qt6/qml"));
+    engine.addImportPath(QStringLiteral("/usr/lib/qt6/qml"));
     engine.rootContext()->setContextProperty(QStringLiteral("VoiceMemos"), &controller);
     engine.load(QUrl(QStringLiteral("qrc:/org/cesar/kvoicememos/qml/main.qml")));
 

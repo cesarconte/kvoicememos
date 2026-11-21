@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/org/cesar/kvoicememos">
         <file>qml/main.qml</file>
+        <file>qml/FolderSidebar.qml</file>
         <file>qml/MemoListSidebar.qml</file>
         <file>qml/RecordingControlDrawer.qml</file>
         <file>qml/PlaybackWaveformCard.qml</file>

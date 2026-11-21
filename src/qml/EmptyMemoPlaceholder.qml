@@ -9,56 +9,77 @@ import QtQuick
 import QtQuick.Layouts
 import CachyOS.UI
 
-Rectangle {
+Item {
     id: root
+
+    signal startRecordingRequested()
+    signal importAudioRequested()
 
     Layout.fillWidth: true
     Layout.fillHeight: true
-    radius: 16
-    color: CachyTheme.cardBackground
-    border.width: 1
-    border.color: CachyTheme.specularBorder
 
     ColumnLayout {
         anchors.centerIn: parent
-        width: Math.min(380, parent.width - 32)
+        width: Math.min(380, parent.width - 48)
         spacing: 12
 
         Rectangle {
             Layout.alignment: Qt.AlignHCenter
-            Layout.preferredWidth: 64
-            Layout.preferredHeight: 64
-            radius: 32
-            color: "#1FFF3B30"
+            Layout.preferredWidth: 68
+            Layout.preferredHeight: 68
+            radius: 34
+            color: Qt.rgba(1.0, 0.23, 0.19, 0.14)
             border.width: 1
-            border.color: "#4DFF3B30"
+            border.color: Qt.rgba(1.0, 0.23, 0.19, 0.34)
 
             CachyIcon {
                 anchors.centerIn: parent
-                name: "audio-input-microphone"
-                fallback: "volume"
-                size: 28
+                name: "waveform"
+                size: 30
                 color: "#FF3B30"
             }
         }
 
         Text {
             Layout.fillWidth: true
+            Layout.minimumWidth: 0
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.WordWrap
-            text: "Selecciona o graba una nota de voz"
-            font.pixelSize: 16
+            text: qsTr("Selecciona o graba una nota de voz")
+            font.pixelSize: 17
             font.weight: Font.Bold
-            color: CachyTheme.textPrimary
+            color: CachyPalette.text
         }
 
         Text {
             Layout.fillWidth: true
+            Layout.minimumWidth: 0
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.WordWrap
-            text: "Las grabaciones se capturan con PipeWire, se transcriben localmente con Whisper.cpp y pueden resumirse o enviarse a la base de conocimiento RAG de Kity."
+            text: qsTr("Las grabaciones se capturan con PipeWire, se transcriben localmente con Whisper.cpp y pueden resumirse o enviarse a la base de conocimiento RAG de Kity.")
             font.pixelSize: 12
-            color: CachyTheme.textSecondary
+            color: CachyPalette.textSecondary
+        }
+
+        RowLayout {
+            Layout.alignment: Qt.AlignHCenter
+            Layout.topMargin: 4
+            spacing: 10
+
+            CachyButton {
+                text: qsTr("Grabar Nota de Voz")
+                iconName: "microphone"
+                destructive: true
+                pillStyle: true
+                onClicked: root.startRecordingRequested()
+            }
+
+            CachyButton {
+                text: qsTr("Importar WAV…")
+                iconName: "upload"
+                pillStyle: true
+                onClicked: root.importAudioRequested()
+            }
         }
     }
 }

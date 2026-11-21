@@ -19,16 +19,18 @@ Rectangle {
 
     Layout.fillWidth: true
     Layout.fillHeight: true
-    visible: root.hasSelection
-    radius: 16
-    color: CachyTheme.cardBackground
+    Layout.leftMargin: 24
+    Layout.rightMargin: 24
+    Layout.bottomMargin: 8
+    radius: CachyTheme.radiusMedium
+    color: CachyPalette.cardBackground
     border.width: 1
-    border.color: CachyTheme.specularBorder
+    border.color: CachyPalette.specularBorder
     clip: true
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 12
+        anchors.margins: CachyTheme.marginCard
         spacing: 8
 
         RowLayout {
@@ -37,23 +39,38 @@ Rectangle {
 
             Text {
                 Layout.fillWidth: true
-                text: "Resumen IA (Kity / Ollama)"
+                Layout.minimumWidth: 0
+                text: qsTr("Resumen IA (Kity / Ollama)")
                 font.pixelSize: 13
                 font.weight: Font.Bold
                 color: "#AF52DE"
                 elide: Text.ElideRight
             }
 
-            QQC2.BusyIndicator {
+            CachyBusyIndicator {
                 running: Boolean(root.currentMemo.summarizing)
                 visible: running
                 Layout.preferredWidth: 18
                 Layout.preferredHeight: 18
             }
 
-            CachyToolbarButton {
-                text: "Resumir"
-                implicitWidth: 70
+            CachyButton {
+                text: qsTr("Copiar")
+                iconName: "copy"
+                pillStyle: true
+                enabled: Boolean(root.currentMemo.summary && root.currentMemo.summary.length > 0)
+                onClicked: {
+                    if (root.controller && root.hasSelection) {
+                        root.controller.copyText(root.currentMemo.summary || "");
+                    }
+                }
+            }
+
+            CachyButton {
+                text: qsTr("Resumir")
+                iconName: "sparkles"
+                primary: true
+                pillStyle: true
                 enabled: !root.currentMemo.summarizing && Boolean(root.currentMemo.transcript)
                 onClicked: {
                     if (root.controller && root.hasSelection) {
@@ -62,11 +79,10 @@ Rectangle {
                 }
             }
 
-            CachyToolbarButton {
-                text: "Kity RAG"
+            CachyButton {
+                text: qsTr("Kity RAG")
                 iconName: "upload"
-                implicitWidth: 92
-                tooltipText: qsTr("Exportar a la base de conocimiento RAG de Kity")
+                pillStyle: true
                 onClicked: {
                     if (root.controller && root.hasSelection) {
                         root.controller.exportToKityKnowledge(root.currentMemo.id);
@@ -75,25 +91,33 @@ Rectangle {
             }
         }
 
-        QQC2.ScrollView {
-            id: summaryScroll
+        Flickable {
+            id: summaryFlick
             Layout.fillWidth: true
             Layout.fillHeight: true
-            contentWidth: availableWidth
-            QQC2.ScrollBar.horizontal.policy: QQC2.ScrollBar.AlwaysOff
+            contentWidth: width
+            contentHeight: summaryTextEdit.implicitHeight + 12
+            flickableDirection: Flickable.VerticalFlick
+            boundsBehavior: Flickable.StopAtBounds
             clip: true
 
-            QQC2.TextArea {
-                width: summaryScroll.availableWidth
+            QQC2.ScrollBar.vertical: QQC2.ScrollBar {
+                policy: QQC2.ScrollBar.AsNeeded
+            }
+
+            TextEdit {
+                id: summaryTextEdit
+                width: Math.max(100, summaryFlick.width - 8)
                 readOnly: true
                 selectByMouse: true
                 wrapMode: TextEdit.Wrap
                 text: root.currentMemo.summary
                     ? root.currentMemo.summary
-                    : "El resumen ejecutivo con puntos clave aparecerá aquí."
-                color: root.currentMemo.summary ? CachyTheme.textPrimary : CachyTheme.textMuted
+                    : qsTr("El resumen ejecutivo con puntos clave aparecerá aquí.")
+                color: root.currentMemo.summary ? CachyPalette.text : CachyPalette.textMuted
+                selectionColor: "#AF52DE"
+                selectedTextColor: "#FFFFFF"
                 font.pixelSize: 13
-                background: null
             }
         }
     }

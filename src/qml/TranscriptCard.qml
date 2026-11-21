@@ -19,16 +19,18 @@ Rectangle {
 
     Layout.fillWidth: true
     Layout.fillHeight: true
-    visible: root.hasSelection
-    radius: 16
-    color: CachyTheme.cardBackground
+    Layout.leftMargin: 24
+    Layout.rightMargin: 24
+    Layout.bottomMargin: 8
+    radius: CachyTheme.radiusMedium
+    color: CachyPalette.cardBackground
     border.width: 1
-    border.color: CachyTheme.specularBorder
+    border.color: CachyPalette.specularBorder
     clip: true
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 12
+        anchors.margins: CachyTheme.marginCard
         spacing: 8
 
         RowLayout {
@@ -37,23 +39,38 @@ Rectangle {
 
             Text {
                 Layout.fillWidth: true
-                text: "Transcripción (Whisper.cpp)"
+                Layout.minimumWidth: 0
+                text: qsTr("Transcripción (Whisper.cpp)")
                 font.pixelSize: 13
                 font.weight: Font.Bold
-                color: CachyTheme.accentColor
+                color: CachyPalette.accentText
                 elide: Text.ElideRight
             }
 
-            QQC2.BusyIndicator {
+            CachyBusyIndicator {
                 running: Boolean(root.currentMemo.transcribing)
                 visible: running
                 Layout.preferredWidth: 18
                 Layout.preferredHeight: 18
             }
 
-            CachyToolbarButton {
-                text: "Transcribir"
-                implicitWidth: 82
+            CachyButton {
+                text: qsTr("Copiar")
+                iconName: "copy"
+                pillStyle: true
+                enabled: Boolean(root.currentMemo.transcript && root.currentMemo.transcript.length > 0)
+                onClicked: {
+                    if (root.controller && root.hasSelection) {
+                        root.controller.copyText(root.currentMemo.transcript || "");
+                    }
+                }
+            }
+
+            CachyButton {
+                text: qsTr("Transcribir")
+                iconName: "message"
+                primary: true
+                pillStyle: true
                 enabled: !root.currentMemo.transcribing
                 onClicked: {
                     if (root.controller && root.hasSelection) {
@@ -63,25 +80,33 @@ Rectangle {
             }
         }
 
-        QQC2.ScrollView {
-            id: transcriptScroll
+        Flickable {
+            id: transcriptFlick
             Layout.fillWidth: true
             Layout.fillHeight: true
-            contentWidth: availableWidth
-            QQC2.ScrollBar.horizontal.policy: QQC2.ScrollBar.AlwaysOff
+            contentWidth: width
+            contentHeight: transcriptTextEdit.implicitHeight + 12
+            flickableDirection: Flickable.VerticalFlick
+            boundsBehavior: Flickable.StopAtBounds
             clip: true
 
-            QQC2.TextArea {
-                width: transcriptScroll.availableWidth
+            QQC2.ScrollBar.vertical: QQC2.ScrollBar {
+                policy: QQC2.ScrollBar.AsNeeded
+            }
+
+            TextEdit {
+                id: transcriptTextEdit
+                width: Math.max(100, transcriptFlick.width - 8)
                 readOnly: true
                 selectByMouse: true
                 wrapMode: TextEdit.Wrap
                 text: root.currentMemo.transcript
                     ? root.currentMemo.transcript
-                    : "Pulsa «Transcribir» para convertir la grabación en texto mediante Whisper.cpp local."
-                color: root.currentMemo.transcript ? CachyTheme.textPrimary : CachyTheme.textMuted
+                    : qsTr("Pulsa «Transcribir» para convertir la grabación en texto mediante Whisper.cpp local.")
+                color: root.currentMemo.transcript ? CachyPalette.text : CachyPalette.textMuted
+                selectionColor: CachyTheme.accentColor
+                selectedTextColor: "#FFFFFF"
                 font.pixelSize: 13
-                background: null
             }
         }
     }
